@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+    mysql:
+        build: ./mysql
+        container_name: mysql
+        restart: always
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: test
+
+    elasticsearch:
+        build: ./elasticsearch
+        container_name: elasticsearch
+        environment:
+            discovery.type: single-node
+        ports:
+            - 9200:9200
+            - 9300:9300
+
+    logstash:
+        build: ./logstash
+        container_name: logstash
+        ports:
+            - 9600:9600
+            - 5044:5044
